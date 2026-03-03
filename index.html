@@ -3,33 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1, minimum-scale=1">
-
 <title>Location Villa CABOUA – Villa Premium en Guadeloupe</title>
 <meta name="description" content="Villa CABOUA en Guadeloupe. Location saisonnière jusqu'à 8 personnes (6 adultes max). Jardin tropical, calme, proche plages.">
 
+<!-- Flatpickr -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/fr.js"></script>
+
+<!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+<!-- Stripe -->
+<script src="https://js.stripe.com/v3/"></script>
+
 <style>
-body{margin:0;font-family:'Segoe UI',sans-serif;background:#f6f6f6;color:#222}
+body{margin:0;font-family:'Segoe UI',sans-serif;background:#f6f6f6;color:#222;overflow-x:hidden;}
 header{background:linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.45)),url('BUDDHA.jpg') center/cover no-repeat;color:white;text-align:center;padding:150px 20px}
 header h1{font-size:3rem;letter-spacing:3px;margin:0}
 header p{color:#f1c40f;margin-top:15px}
 .hero-btn{display:inline-block;margin-top:30px;padding:15px 30px;background:#e67e22;color:white;text-decoration:none;border-radius:8px;font-weight:bold;transition:0.3s}
 .hero-btn:hover{background:#cf711f}
 
-.container{max-width:1200px;margin:50px auto;display:flex;gap:40px;padding:0 20px}
-.left{flex:2}
-.right{flex:1}
+.container{max-width:1200px;margin:50px auto;display:flex;gap:40px;padding:0 20px;flex-wrap:wrap}
+.left{flex:2;min-width:300px}
+.right{flex:1;min-width:280px}
 
 .section{background:white;padding:30px;margin-bottom:35px;border-radius:15px;box-shadow:0 8px 25px rgba(0,0,0,0.05)}
 
-.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
-.gallery img{width:100%;border-radius:12px}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px}
+.gallery img{width:100%;border-radius:12px;object-fit:cover}
 
-.equip-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:15px}
+.equip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-top:15px}
 .equip-item{display:flex;align-items:center;gap:10px}
 .equip-item i{color:#27ae60}
 
@@ -43,8 +48,8 @@ label{font-weight:bold;display:block;margin-top:15px}
 
 .limit-info{font-size:13px;color:#666;margin-top:10px}
 
-#checkoutButton{width:100%;padding:14px;background:#e67e22;border:none;border-radius:10px;color:white;font-weight:bold;margin-top:20px;cursor:pointer;font-size:16px}
-#checkoutButton:hover{background:#cf711f}
+.btn{width:100%;padding:14px;background:#e67e22;border:none;border-radius:10px;color:white;font-weight:bold;margin-top:20px;cursor:pointer;font-size:16px}
+.btn:hover{background:#cf711f}
 
 .billing-line{display:flex;justify-content:space-between;margin-bottom:6px}
 .billing-line.total{font-weight:bold;font-size:17px}
@@ -121,7 +126,7 @@ label{font-weight:bold;display:block;margin-top:15px}
 <h3>180 € / nuit</h3>
 
 <label>Dates</label>
-<input id="calendar">
+<input id="calendar" placeholder="Sélectionnez vos dates">
 
 <label>Adultes</label>
 <div class="counter">
@@ -141,74 +146,108 @@ label{font-weight:bold;display:block;margin-top:15px}
 
 <div id="billing"></div>
 
-<!-- Nouveau bouton Stripe -->
-<button id="checkoutButton">Réserver maintenant</button>
+<button id="checkoutButton" class="btn">Réserver via Stripe</button>
 
-<!-- Avis clients sous réservation -->
 <div class="section">
 <h2>Avis clients</h2>
 <div class="review"><p>“Séjour incroyable, villa très confortable et jardin magnifique !”</p><div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div></div>
 <div class="review"><p>“Accueil chaleureux et séjour parfait en famille. Je recommande !”</p><div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div></div>
-<div class="review"><p>“Emplacement idéal et villa parfaitement équipée, un vrai bonheur !”</p><div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div></div>
-<div class="review"><p>“Villa très propre et spacieuse, parfait pour nos vacances !”</p><div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div></div>
-<div class="review"><p>“Tout était parfait : villa, accueil, emplacement. Nous reviendrons !”</p><div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div></div>
 </div>
 
 </div>
-
 </div>
 
-<a href="#" id="whatsappFloat" class="whatsapp-float">
-<i class="fa-brands fa-whatsapp"></i>
-</a>
+<a href="#" id="whatsappFloat" class="whatsapp-float"><i class="fa-brands fa-whatsapp"></i></a>
 
 <script>
-// Calcul, compteur, WhatsApp (inchangé)
-let startDate,endDate
+// CONFIG
+let startDate=null,endDate=null
 let adults=2,children=0
-const MAX_ADULTS=6
-const MAX_TOTAL=8
-const MIN_NIGHTS=4
-const NIGHT_PRICE=180
-const CLEANING=120
-const TAX_PER_ADULT=1.5
+const MAX_ADULTS=6, MAX_TOTAL=8, MIN_NIGHTS=4
+const NIGHT_PRICE=180, CLEANING=120, TAX_PER_ADULT=1.5
 const PHONE="590690520616"
+const STRIPE_PUBLISHABLE_KEY="VOTRE_STRIPE_PUBLISHABLE_KEY"
 
-flatpickr("#calendar",{locale:"fr",mode:"range",dateFormat:"d/m/Y",minDate:"today",
-onChange:function(d){if(d.length===2){let nights=(d[1]-d[0])/(1000*60*60*24);if(nights<MIN_NIGHTS){alert("Séjour minimum 4 nuits.");this.clear();return}startDate=d[0];endDate=d[1];calculate()}}})
+const stripe = Stripe(STRIPE_PUBLISHABLE_KEY)
 
+// Flatpickr
+flatpickr("#calendar",{
+  locale:"fr",
+  mode:"range",
+  dateFormat:"d/m/Y",
+  minDate:"today",
+  onChange:function(d){
+    if(d.length===2){
+      let nights=(d[1]-d[0])/(1000*60*60*24)
+      if(nights<MIN_NIGHTS){alert("Séjour minimum 4 nuits."); this.clear(); startDate=null; endDate=null; billing.innerHTML=""; return}
+      startDate=d[0]; endDate=d[1]; calculate()
+    }
+  }
+})
+
+// Boutons + / -
 function updateButtons(){
-adultMinus.disabled = adults<=1
-adultPlus.disabled = adults>=MAX_ADULTS || adults+children>=MAX_TOTAL
-childMinus.disabled = children<=0
-childPlus.disabled = adults+children>=MAX_TOTAL
+  adultMinus.disabled = adults<=1
+  adultPlus.disabled = adults>=MAX_ADULTS || adults+children>=MAX_TOTAL
+  childMinus.disabled = children<=0
+  childPlus.disabled = adults+children>=MAX_TOTAL
 }
 
-function changeAdult(n){let newAdults=adults+n;if(newAdults<1||newAdults>MAX_ADULTS||newAdults+children>MAX_TOTAL) return;adults=newAdults;adultCount.innerText=adults;updateButtons();calculate()}
-function changeChild(n){let newChildren=children+n;if(newChildren<0||adults+newChildren>MAX_TOTAL) return;children=newChildren;childCount.innerText=children;updateButtons();calculate()}
+function changeAdult(n){
+  let newAdults=adults+n
+  if(newAdults<1||newAdults>MAX_ADULTS||newAdults+children>MAX_TOTAL) return
+  adults=newAdults
+  adultCount.innerText=adults
+  updateButtons()
+  calculate()
+}
 
+function changeChild(n){
+  let newChildren=children+n
+  if(newChildren<0||adults+newChildren>MAX_TOTAL) return
+  children=newChildren
+  childCount.innerText=children
+  updateButtons()
+  calculate()
+}
+
+// Calcul du total
 function calculate(){
-if(!startDate||!endDate) return 0
-let nights=(endDate-startDate)/(1000*60*60*24)
-let subtotal=nights*NIGHT_PRICE
-let tax=adults*TAX_PER_ADULT
-let total=subtotal+CLEANING+tax
-billing.innerHTML=`<div class="billing-line"><span>${nights} nuits</span><span>${subtotal.toFixed(2)} €</span></div><div class="billing-line"><span>Taxe séjour</span><span>${tax.toFixed(2)} €</span></div><div class="billing-line"><span>Ménage</span><span>${CLEANING.toFixed(2)} €</span></div><hr><div class="billing-line total"><span>Total</span><span>${total.toFixed(2)} €</span></div>`
-return total
+  if(!startDate||!endDate) return 0
+  let nights=(endDate-startDate)/(1000*60*60*24)
+  let subtotal=nights*NIGHT_PRICE
+  let tax=adults*TAX_PER_ADULT
+  let total=subtotal+CLEANING+tax
+  billing.innerHTML=`
+  <div class="billing-line"><span>${nights} nuits</span><span>${subtotal.toFixed(2)} €</span></div>
+  <div class="billing-line"><span>Taxe séjour</span><span>${tax.toFixed(2)} €</span></div>
+  <div class="billing-line"><span>Ménage</span><span>${CLEANING.toFixed(2)} €</span></div>
+  <hr>
+  <div class="billing-line total"><span>Total</span><span>${total.toFixed(2)} €</span></div>`
+  return total
 }
 
-// Nouveau bouton Stripe simple
-document.getElementById("checkoutButton").addEventListener("click", async () => {
-const res = await fetch("/api/create-checkout-session", {method: "POST"})
-const data = await res.json()
-window.location.href = data.url
+// Stripe
+document.getElementById("checkoutButton").addEventListener("click", async ()=>{
+  if(!startDate||!endDate){alert("Veuillez sélectionner vos dates."); return}
+  let total = calculate()
+  const session = await fetch("/create-checkout-session",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({amount:Math.round(total*100),adults,children,start:startDate.toISOString(),end:endDate.toISOString()})
+  }).then(r=>r.json())
+  stripe.redirectToCheckout({sessionId:session.id})
 })
 
 // WhatsApp
 function sendWhatsApp(){
-let message="Bonjour, je souhaite des informations pour la Villa CABOUA."
-if(startDate && endDate){let s=startDate.toLocaleDateString("fr-FR"); let e=endDate.toLocaleDateString("fr-FR"); message=`Bonjour, je souhaite réserver la Villa CABOUA du ${s} au ${e} pour ${adults} adulte(s) et ${children} enfant(s).`}
-window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(message)}`,"_blank")
+  let message="Bonjour, je souhaite des informations pour la Villa CABOUA."
+  if(startDate && endDate){
+    let s=startDate.toLocaleDateString("fr-FR")
+    let e=endDate.toLocaleDateString("fr-FR")
+    message=`Bonjour, je souhaite réserver la Villa CABOUA du ${s} au ${e} pour ${adults} adulte(s) et ${children} enfant(s).`
+  }
+  window.open(`https://wa.me/${PHONE}?text=${encodeURIComponent(message)}`,"_blank")
 }
 document.getElementById("whatsappFloat").addEventListener("click",sendWhatsApp)
 updateButtons()
